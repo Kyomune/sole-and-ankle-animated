@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { QUERIES, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import Icon from '../Icon';
-import UnstyledButton from '../UnstyledButton';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
-import VisuallyHidden from '../VisuallyHidden';
+import { QUERIES, WEIGHTS } from "../../constants";
+import Logo from "../Logo";
+import Icon from "../Icon";
+import UnstyledButton from "../UnstyledButton";
+import SuperHeader from "../SuperHeader";
+import MobileMenu from "../MobileMenu";
+import VisuallyHidden from "../VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -20,12 +20,47 @@ const Header = () => {
           <Logo />
         </LogoWrapper>
         <DesktopNav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLink>
+            <PrimaryNavContent href="/sale">Sale</PrimaryNavContent>
+
+            <SecondaryNavContent href="/sale">Sale</SecondaryNavContent>
+          </NavLink>
+
+          <NavLink>
+            <PrimaryNavContent href="/new">New&nbsp;Releases</PrimaryNavContent>
+
+            <SecondaryNavContent href="/new">
+              New&nbsp;Releases
+            </SecondaryNavContent>
+          </NavLink>
+
+          <NavLink>
+            <PrimaryNavContent href="/men">Men</PrimaryNavContent>
+
+            <SecondaryNavContent href="/men">Men</SecondaryNavContent>
+          </NavLink>
+
+          <NavLink>
+            <PrimaryNavContent href="/women">Women</PrimaryNavContent>
+
+            <SecondaryNavContent href="/women">Women</SecondaryNavContent>
+          </NavLink>
+
+          <NavLink>
+            <PrimaryNavContent href="/kids">Kids</PrimaryNavContent>
+
+            <SecondaryNavContent href="/kids">Kids</SecondaryNavContent>
+          </NavLink>
+
+          <NavLink>
+            <PrimaryNavContent href="/collections">
+              Collections
+            </PrimaryNavContent>
+
+            <SecondaryNavContent href="/collections">
+              Collections
+            </SecondaryNavContent>
+          </NavLink>
         </DesktopNav>
         <MobileActions>
           <ShoppingBagButton>
@@ -76,9 +111,54 @@ const DesktopNav = styled.nav`
   gap: clamp(1rem, 9.2vw - 4.5rem, 3.5rem);
   margin: 0px 48px;
 
+  overflow: hidden;
+
   @media ${QUERIES.tabletAndSmaller} {
     display: none;
   }
+`;
+
+const NavLink = styled.span`
+  color: var(--color-gray-900);
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: block;
+  max-height: 37px;
+  overflow: hidden;
+  position: relative;
+
+  &:first-of-type {
+    color: var(--color-secondary);
+  }
+`;
+
+const NavContent = styled.a`
+  font-size: inherit;
+  text-transform: inherit;
+  text-decoration: inherit;
+  color: inherit;
+  display: block;
+  transition: transform 400ms;
+  transform: translateY(var(--var-translate-from));
+
+  ${NavLink}:hover & {
+    transform: translateY(var(--translate-to));
+  }
+`;
+
+const PrimaryNavContent = styled(NavContent)`
+  --var-translate-to: -100%;
+  --var-translate-from: 0%;
+  font-weight: ${WEIGHTS.medium};
+`;
+
+const SecondaryNavContent = styled(NavContent)`
+  --var-translate-to: 0%;
+  --var-translate-from: 100%;
+  font-weight: ${WEIGHTS.bold};
+  position: absolute;
+  top: 0px;
 `;
 
 const MobileActions = styled.div`
@@ -111,18 +191,6 @@ const Filler = styled.div`
 
   @media ${QUERIES.tabletAndSmaller} {
     display: none;
-  }
-`;
-
-const NavLink = styled.a`
-  font-size: 1.125rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
-
-  &:first-of-type {
-    color: var(--color-secondary);
   }
 `;
 
